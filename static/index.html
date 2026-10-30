@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SNCR · Homologação</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><span class="eyebrow">ANVISA · AMBIENTE DE HOMOLOGAÇÃO</span><h1>Console SNCR</h1><p>Autentique-se e teste as solicitações de numeração.</p></header>
+    <section class="session" aria-labelledby="session-title">
+      <div><h2 id="session-title">Conexão com gov.br</h2><p id="session-status" role="status">Carregando sessão…</p><small id="expires"></small></div>
+      <div class="actions"><button id="login" type="button" disabled>Entrar com gov.br</button><button id="logout" class="secondary" type="button" hidden>Limpar credencial</button></div>
+    </section>
+    <p id="error" role="alert" hidden></p>
+    <div class="columns">
+      <section aria-labelledby="request-title"><h2 id="request-title">Solicitar numeração</h2>
+        <form id="request-form">
+          <label>Tipo de receita<select id="tipo" name="tipo"><option value="NRA">Notificação A · NRA</option><option value="NRB">Notificação B · NRB</option><option value="NRB2">Notificação B2 · NRB2</option><option value="NRR">Retinoides · NRR</option><option value="RCE">Controle especial · RCE</option><option value="RET">Sujeita à retenção · RET</option></select></label>
+          <div class="row"><label>Conselho<select name="conselho"><option>CRM</option><option>CRO</option><option>CRMV</option></select></label><label>UF<select id="uf" name="uf"></select></label></div>
+          <label>Número do conselho<input name="documento" inputmode="numeric" pattern="[0-9]+" maxlength="20" placeholder="Número de registro profissional" required></label>
+          <label id="quantity-field">Quantidade<input name="quantidade" type="number" min="10" max="50" value="10" required></label>
+          <div id="cnpj-field" hidden>
+            <label for="cnpj">CNPJ da instituição</label>
+            <div class="input-action"><input id="cnpj" name="cnpj" inputmode="numeric" maxlength="18" placeholder="00.000.000/0000-00"><button id="generate-cnpj" class="secondary" type="button">Gerar</button></div>
+          </div>
+          <p id="request-note" class="note"></p>
+          <button id="submit" type="submit" disabled>Solicitar na Anvisa</button>
+        </form>
+      </section>
+      <section aria-labelledby="response-title"><div class="result-heading"><h2 id="response-title">Resposta da Anvisa</h2><span id="http-status" class="badge">Sem requisição</span></div>
+        <p id="result-note" class="note">A resposta e o corpo enviado aparecerão aqui.</p>
+        <pre id="result" tabindex="0">Nenhuma solicitação enviada.</pre>
+        <details><summary>Requisição enviada</summary><pre id="request" tabindex="0">—</pre></details>
+        <button id="download" type="button" class="secondary" hidden>Baixar resultado JSON</button>
+      </section>
+    </div>
+    <footer>Token mantido apenas em memória no servidor local. O login não solicita números. Esta ferramenta não assina nem emite receitas.</footer>
+  </main>
+</body>
+</html>
